@@ -1,0 +1,12 @@
+h1 {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+.navbar {
+  border-bottom: 2px solid #FE7058;
+}
