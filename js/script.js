@@ -16,10 +16,7 @@ startButton.addEventListener('click', () => {
 stopButton.addEventListener('click', () => {
   minutes.innerText = 25;
   seconds.innerText = '00';
-  clearInterval(startTimer);
-  startTimer = undefined;
-  startButton.disabled = false;
-  stopButton.disabled = true;
+  resetTimer();
 })
 
 function goTimer() {
@@ -36,8 +33,14 @@ function goTimer() {
       audio.pause();
       minutes.innerText = 25;
       seconds.innerText = '00';
-    }, 3000);
-    clearInterval(startTimer);
-    startTimer = undefined;
+    }, 5000);
+    resetTimer();
   }
+}
+
+function resetTimer() {
+  clearInterval(startTimer);
+  startTimer = undefined;
+  startButton.disabled = false;
+  stopButton.disabled = true;
 }
