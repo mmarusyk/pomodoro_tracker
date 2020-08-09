@@ -1,14 +1,16 @@
 // Time
 let workMinutes = 25;
 let workSeconds = '00'
-let shortBreakMinutes = 5;
+let shortBreakMinutes = 25;
 let shortBreakSeconds = '00';
-let longBreakMinutes = 15;
+let longBreakMinutes = 25;
 let longBreakSeconds = '00'
+let pomodorosMax = 4;
 
 // Initialize
 document.getElementById('digit-minutes').textContent = workMinutes;
 document.getElementById('digit-seconds').textContent = workSeconds;
+document.querySelector('.pomodoros-max').textContent = pomodorosMax;
 minutes = document.getElementById('digit-minutes');
 seconds = document.getElementById('digit-seconds');
 
@@ -17,6 +19,7 @@ let buttonShortBreak = document.getElementById('button-short-break');
 let buttonLongBreak = document.getElementById('button-long-break');
 let startButton = document.getElementById('button-start');
 let stopButton = document.getElementById('button-stop');
+let pomodoros = document.querySelector('.pomodoros');
 
 let startTimer;
 let countPomodoros = 0;
@@ -81,15 +84,16 @@ function goTimer() {
     audio.play();
     setTimeout(() => {
       audio.pause();
-      if (buttonWork.disabled && countPomodoros == 3) {
+      if (buttonWork.disabled && countPomodoros == pomodorosMax - 1) {
         countPomodoros = 0;
         buttonLongBreak.click();
-      } else if (buttonWork.disabled && countPomodoros != 3) {
+      } else if (buttonWork.disabled && countPomodoros != pomodorosMax - 1) {
         countPomodoros++;
         buttonShortBreak.click();
       } else {
         buttonWork.click();
       }
+      pomodoros.textContent = countPomodoros;
     }, 5000);
     resetTimer();
   }
