@@ -1,9 +1,9 @@
 // Time
 let workMinutes = 25;
 let workSeconds = '00'
-let shortBreakMinutes = 25;
+let shortBreakMinutes = 5;
 let shortBreakSeconds = '00';
-let longBreakMinutes = 25;
+let longBreakMinutes = 15;
 let longBreakSeconds = '00'
 let pomodorosMax = 4;
 
