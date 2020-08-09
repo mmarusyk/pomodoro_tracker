@@ -5,6 +5,9 @@ let seconds = document.getElementById('digit-seconds');
 
 let startTimer;
 
+let workMinutes = 25;
+let workSeconds = '00'
+
 startButton.addEventListener('click', () => {
   startButton.disabled = true;
   stopButton.disabled = false;
@@ -14,8 +17,8 @@ startButton.addEventListener('click', () => {
 })
 
 stopButton.addEventListener('click', () => {
-  minutes.innerText = 25;
-  seconds.innerText = '00';
+  minutes.innerText = workMinutes;
+  seconds.innerText = workSeconds;
   resetTimer();
 })
 
@@ -27,12 +30,12 @@ function goTimer() {
     minutes.innerText--;
   }
   if (minutes.innerText == 0 && seconds.innerText == 0) {
-    var audio = new Audio('https://onlineclock.net/audio/options/default.mp3');
+    var audio = new Audio('sounds/default.mp3');
     audio.play();
     setTimeout(() => {
       audio.pause();
-      minutes.innerText = 25;
-      seconds.innerText = '00';
+      minutes.innerText = workMinutes;
+      seconds.innerText = workSeconds;
     }, 5000);
     resetTimer();
   }
