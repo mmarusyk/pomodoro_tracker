@@ -1,13 +1,27 @@
-let startButton = document.getElementById('button-start');
-let stopButton = document.getElementById('button-stop');
-let minutes = document.getElementById('digit-minutes');
-let seconds = document.getElementById('digit-seconds');
-
-let startTimer;
-
+// Time
 let workMinutes = 25;
 let workSeconds = '00'
+let shortBreakMinutes = 5;
+let shortBreakSeconds = '00';
+let longBreakMinutes = 15;
+let longBreakSeconds = '00'
 
+// Initialize
+document.getElementById('digit-minutes').textContent = workMinutes;
+document.getElementById('digit-seconds').textContent = workSeconds;
+minutes = document.getElementById('digit-minutes');
+seconds = document.getElementById('digit-seconds');
+
+let buttonWork = document.getElementById('button-work');
+let buttonShortBreak = document.getElementById('button-short-break');
+let buttonLongBreak = document.getElementById('button-long-break');
+let startButton = document.getElementById('button-start');
+let stopButton = document.getElementById('button-stop');
+
+let startTimer;
+let countPomodoros = 0;
+
+// Start Timer
 startButton.addEventListener('click', () => {
   startButton.disabled = true;
   stopButton.disabled = false;
@@ -16,9 +30,42 @@ startButton.addEventListener('click', () => {
   }
 })
 
+
+// Stop Timer
 stopButton.addEventListener('click', () => {
+  if (buttonWork.disabled) {
+    minutes.innerText = workMinutes;
+    seconds.innerText = workSeconds;
+    resetTimer();
+  } else if (buttonShortBreak.disabled) {
+    minutes.innerText = shortBreakMinutes;
+    seconds.innerText = shortBreakSeconds;
+    resetTimer();
+  } else if (buttonLongBreak.disabled){
+    minutes.innerText = longBreakMinutes;
+    seconds.innerText = longBreakSeconds;
+    resetTimer();
+  }
+})
+
+buttonWork.addEventListener('click', () => {
+  disableButton(true, false, false);
   minutes.innerText = workMinutes;
   seconds.innerText = workSeconds;
+  resetTimer();
+})
+
+buttonShortBreak.addEventListener('click', () => {
+  disableButton(false, true, false);
+  minutes.innerText = shortBreakMinutes;
+  seconds.innerText = shortBreakSeconds;
+  resetTimer();
+})
+
+buttonLongBreak.addEventListener('click', () => {
+  disableButton(false, false, true);
+  minutes.innerText = longBreakMinutes;
+  seconds.innerText = longBreakSeconds;
   resetTimer();
 })
 
@@ -34,8 +81,15 @@ function goTimer() {
     audio.play();
     setTimeout(() => {
       audio.pause();
-      minutes.innerText = workMinutes;
-      seconds.innerText = workSeconds;
+      if (buttonWork.disabled && countPomodoros == 3) {
+        countPomodoros = 0;
+        buttonLongBreak.click();
+      } else if (buttonWork.disabled && countPomodoros != 3) {
+        countPomodoros++;
+        buttonShortBreak.click();
+      } else {
+        buttonWork.click();
+      }
     }, 5000);
     resetTimer();
   }
@@ -46,4 +100,10 @@ function resetTimer() {
   startTimer = undefined;
   startButton.disabled = false;
   stopButton.disabled = true;
+}
+
+function disableButton(value1, value2, value3) {
+  buttonWork.disabled = value1;
+  buttonShortBreak.disabled = value2;
+  buttonLongBreak.disabled = value3;
 }

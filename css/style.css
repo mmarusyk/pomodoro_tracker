@@ -21,14 +21,19 @@ body {
   height: 500px;
 }
 
+.timer {
+  padding-bottom: 50px;
+}
+
 .timer-digit {
   font-size: 144px;
 }
 
 .btn {
   width: 200px;
-  margin-top: 50px;
 }
+
+
 
 footer {
   margin-top: 80px;
